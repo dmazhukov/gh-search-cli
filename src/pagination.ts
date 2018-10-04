@@ -1,5 +1,5 @@
-import cli from 'cli-ux'
+import cli from 'cli-ux';
 
 export default {
-  next: () => cli.confirm('continue?')
-}
+	next: () => cli.confirm('continue?')
+};

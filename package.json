@@ -1,84 +1,88 @@
 {
-  "name": "gh-search-cli",
-  "description": "github.com search cli",
-  "version": "3.0.0",
-  "author": "feinoujc @feinoujc",
-  "bin": {
-    "ghs": "./bin/run"
-  },
-  "bugs": "https://github.com/feinoujc/gh-search-cli/issues",
-  "dependencies": {
-    "@oclif/command": "^1",
-    "@oclif/config": "^1",
-    "@oclif/plugin-help": "^2",
-    "tslib": "^1",
-    "chalk": "^2.3.2",
-    "cli-ux": "^3.3.26",
-    "fs-extra": "^5.0.0",
-    "git-user-name": "^2.0.0",
-    "open": "0.0.5",
-    "parse-link-header": "^1.0.1",
-    "request": "^2.85.0",
-    "request-promise-native": "^1.0.5"
-  },
-  "devDependencies": {
-    "@oclif/dev-cli": "^1.19.0",
-    "@oclif/test": "^1",
-    "@oclif/tslint": "^3",
-    "@types/chai": "^4",
-    "@types/fs-extra": "^5.0.1",
-    "@types/mocha": "^5",
-    "@types/nock": "^9.1.2",
-    "@types/open": "0.0.29",
-    "@types/parse-link-header": "^1.0.0",
-    "@types/request-promise-native": "^1.0.14",
-    "@types/sinon": "^4.3.0",
-    "chai": "^4.2.0",
-    "globby": "^8.0.1",
-    "mocha": "^5",
-    "nock": "^9.2.3",
-    "nyc": "^13",
-    "sinon": "^4.4.8",
-    "ts-node": "^7",
-    "tslint": "^5",
-    "typescript": "^3.0"
-  },
-  "engines": {
-    "node": ">=8.0.0"
-  },
-  "files": [
-    "/bin",
-    "/lib"
-  ],
-  "homepage": "https://github.com/feinoujc/gh-search-cli",
-  "keywords": [
-    "oclif",
-    "github",
-    "search",
-    "api",
-    "cli"
-  ],
-  "license": "MIT",
-  "main": "lib/index.js",
-  "oclif": {
-    "commands": "./lib/commands",
-    "bin": "ghs",
-    "plugins": [
-      "@oclif/plugin-help"
-    ],
-    "hooks": {
-      "init": "./lib/hooks/init/auth"
-    }
-  },
-  "repository": "feinoujc/gh-search-cli",
-  "scripts": {
-    "posttest": "tslint -p test -t stylish",
-    "prepack": "npm run build",
-    "clean": "rm -rf lib && rm -rf .nyc_output",
-    "build": "npm run clean && tsc -b",
-    "test": "nyc --extension .ts mocha --forbid-only \"test/**/*.test.ts\"",
-    "preversion": "npm run clean",
-    "version": "oclif-dev readme && git add README.md"
-  },
-  "types": "lib/index.d.ts"
+	"name": "gh-search-cli",
+	"description": "github.com search cli",
+	"version": "3.0.0",
+	"author": "feinoujc @feinoujc",
+	"bin": {
+		"ghs": "./bin/run"
+	},
+	"bugs": "https://github.com/feinoujc/gh-search-cli/issues",
+	"dependencies": {
+		"@oclif/command": "^1",
+		"@oclif/config": "^1",
+		"@oclif/plugin-help": "^2",
+		"tslib": "^1",
+		"chalk": "^2.3.2",
+		"cli-ux": "^3.3.26",
+		"fs-extra": "^5.0.0",
+		"git-user-name": "^2.0.0",
+		"open": "0.0.5",
+		"parse-link-header": "^1.0.1",
+		"request": "^2.85.0",
+		"request-promise-native": "^1.0.5"
+	},
+	"devDependencies": {
+		"@oclif/dev-cli": "^1.19.0",
+		"@oclif/test": "^1",
+		"@oclif/tslint": "^3",
+		"@types/chai": "^4",
+		"@types/fs-extra": "^5.0.1",
+		"@types/mocha": "^5",
+		"@types/nock": "^9.1.2",
+		"@types/open": "0.0.29",
+		"@types/parse-link-header": "^1.0.0",
+		"@types/request-promise-native": "^1.0.14",
+		"@types/sinon": "^4.3.0",
+		"chai": "^4.2.0",
+		"globby": "^8.0.1",
+		"mocha": "^5",
+		"nock": "^9.2.3",
+		"nyc": "^13",
+		"prettier": "^1.14.3",
+		"sinon": "^4.4.8",
+		"ts-node": "^7",
+		"tslint": "^5",
+		"tslint-config-prettier": "^1.15.0",
+		"typescript": "^3.0"
+	},
+	"engines": {
+		"node": ">=8.0.0"
+	},
+	"files": [
+		"/bin",
+		"/lib"
+	],
+	"homepage": "https://github.com/feinoujc/gh-search-cli",
+	"keywords": [
+		"oclif",
+		"github",
+		"search",
+		"api",
+		"cli"
+	],
+	"license": "MIT",
+	"main": "lib/index.js",
+	"oclif": {
+		"commands": "./lib/commands",
+		"bin": "ghs",
+		"plugins": [
+			"@oclif/plugin-help"
+		],
+		"hooks": {
+			"init": "./lib/hooks/init/auth"
+		}
+	},
+	"repository": "feinoujc/gh-search-cli",
+	"scripts": {
+		"posttest": "tslint -p test -t stylish",
+		"prepack": "npm run build",
+		"clean": "rm -rf lib && rm -rf .nyc_output",
+		"prebuild": "npm run clean",
+		"build": "tsc -b",
+		"test": "nyc --extension .ts mocha --forbid-only \"test/**/*.test.ts\"",
+		"preversion": "npm run clean",
+		"version": "oclif-dev readme && git add README.md",
+		"prettier": "prettier --write \"**/*.{ts,json,yaml,yml}\""
+	},
+	"types": "lib/index.d.ts"
 }

@@ -1,4 +1,3 @@
----
 version: 2
 jobs:
   node-latest: &test
@@ -6,8 +5,8 @@ jobs:
       - image: node:latest
     working_directory: ~/cli
     environment:
-      NYC: "yarn exec nyc -- --nycrc-path node_modules/@oclif/nyc-config/.nycrc"
-      MOCHA_FILE: "reports/mocha.xml"
+      NYC: 'yarn exec nyc -- --nycrc-path node_modules/@oclif/nyc-config/.nycrc'
+      MOCHA_FILE: 'reports/mocha.xml'
     steps:
       - checkout
       - restore_cache: &restore_cache

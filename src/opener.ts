@@ -1,5 +1,5 @@
-import opener = require('open')
+import opener = require('open');
 
 export default {
-  open: opener
-}
+	open: opener
+};
