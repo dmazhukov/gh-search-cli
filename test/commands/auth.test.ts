@@ -1,6 +1,6 @@
 import {expect, test} from '@oclif/test'
-import * as nock from 'nock'
-import * as sinon from 'sinon'
+import nock from 'nock'
+import sinon from 'sinon'
 
 import AuthFile from '../../src/auth-file'
 import questions from '../../src/hooks/init/auth-questions'
@@ -16,26 +16,26 @@ describe('hooks', () => {
       sandbox.stub(AuthFile.prototype, 'getConfig').resolves({token: 'abc123', baseUrl: 'https://api.github.com'})
     })
     test
-    .stderr()
-    .stdout()
-    .hook('init', {id: 'commits'})
-    .do(output => {
-      expect(output.stderr).to.be.equal('')
-      expect(output.stdout).to.be.equal('')
-    })
-    .it('does nothing')
+      .stderr()
+      .stdout()
+      .hook('init', {id: 'commits'})
+      .do(output => {
+        expect(output.stderr).to.be.equal('')
+        expect(output.stdout).to.be.equal('')
+      })
+      .it('does nothing')
   })
 
   describe('skips if command is config', () => {
     test
-    .stderr()
-    .stdout()
-    .hook('init', {id: 'config'})
-    .do(output => {
-      expect(output.stderr).to.be.equal('')
-      expect(output.stdout).to.be.equal('')
-    })
-    .it('does nothing')
+      .stderr()
+      .stdout()
+      .hook('init', {id: 'config'})
+      .do(output => {
+        expect(output.stderr).to.be.equal('')
+        expect(output.stdout).to.be.equal('')
+      })
+      .it('does nothing')
   })
 
   describe('needs configured (github, no 2fa)', () => {
@@ -54,12 +54,12 @@ describe('hooks', () => {
     })
 
     test
-    .stderr()
-    .hook('init', {id: 'commits'})
-    .do(() => {
-      expect(configStub.calledOnceWith({token: 'abc123', baseUrl: 'https://api.github.com'})).to.be.equal(true)
-    })
-    .it('stores config')
+      .stderr()
+      .hook('init', {id: 'commits'})
+      .do(() => {
+        expect(configStub.calledOnceWith({token: 'abc123', baseUrl: 'https://api.github.com'})).to.be.equal(true)
+      })
+      .it('stores config')
   })
 
   describe('bad login', () => {
@@ -90,13 +90,13 @@ describe('hooks', () => {
     })
 
     test
-    .stderr()
-    .hook('init', {id: 'commits'})
-    .do(ctx => {
-      expect(ctx.stderr).to.match(/bad login/i)
-      expect(configStub.calledOnceWith({token: 'fgh345', baseUrl: 'https://api.github.com'})).to.be.equal(true)
-    })
-    .it('stores config')
+      .stderr()
+      .hook('init', {id: 'commits'})
+      .do(ctx => {
+        expect(ctx.stderr).to.match(/bad login/i)
+        expect(configStub.calledOnceWith({token: 'fgh345', baseUrl: 'https://api.github.com'})).to.be.equal(true)
+      })
+      .it('stores config')
   })
 
   describe('needs configured (github, 2fa)', () => {
@@ -110,29 +110,29 @@ describe('hooks', () => {
       sandbox.stub(questions, 'otp').resolves('12345')
 
       nock('https://api.github.com')
-      .post('/authorizations')
-      .reply(401, {}, {
-        'X-GitHub-OTP': 'required; app'
-      })
+        .post('/authorizations')
+        .reply(401, {}, {
+          'X-GitHub-OTP': 'required; app'
+        })
       nock('https://api.github.com', {
         reqheaders: {
           'X-GitHub-OTP': '12345'
         }
       })
-      .post('/authorizations')
-      .reply(200, {
-        token: 'abc123'
-      })
+        .post('/authorizations')
+        .reply(200, {
+          token: 'abc123'
+        })
     })
 
     test
-    .stderr()
-    .stdout()
-    .hook('init', {id: 'commits'})
-    .do(() => {
-      expect(configStub.calledOnceWith({token: 'abc123', baseUrl: 'https://api.github.com'})).to.be.equal(true)
-    })
-    .it('stores config')
+      .stderr()
+      .stdout()
+      .hook('init', {id: 'commits'})
+      .do(() => {
+        expect(configStub.calledOnceWith({token: 'abc123', baseUrl: 'https://api.github.com'})).to.be.equal(true)
+      })
+      .it('stores config')
   })
 
   describe('needs configured (ghe, no 2fa)', () => {
@@ -152,12 +152,12 @@ describe('hooks', () => {
     })
 
     test
-    .stderr()
-    .hook('init', {id: 'commits'})
-    .do(() => {
-      expect(configStub.calledOnceWith({token: '456dfg', baseUrl: 'https://github.evilcorp.com/api/v3'})).to.be.equal(true)
-    })
-    .it('stores config')
+      .stderr()
+      .hook('init', {id: 'commits'})
+      .do(() => {
+        expect(configStub.calledOnceWith({token: '456dfg', baseUrl: 'https://github.evilcorp.com/api/v3'})).to.be.equal(true)
+      })
+      .it('stores config')
   })
 
 })

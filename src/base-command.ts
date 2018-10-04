@@ -1,10 +1,10 @@
 import Command, {flags} from '@oclif/command'
 import cli, {Table} from 'cli-ux'
+import GitUserName from 'git-user-name'
 import {StatusCodeError} from 'request-promise-native/errors'
 
 import search, {ApiResponse} from './api'
 import AuthFile from './auth-file'
-import git from './git-user-name'
 import opener from './opener'
 import paginator from './pagination'
 
@@ -87,7 +87,7 @@ export default abstract class BaseCommand extends Command {
     Object.entries(options).forEach(([k, v]) => {
       if (k.startsWith('current-')) {
         const trimmedKey = k.replace(/^current-/, '')
-        qs.push(`${trimmedKey}:${git.getUser()}`)
+        qs.push(`${trimmedKey}:${GitUserName()}`)
       } else {
         qs.push(`${k}:${v}`)
       }

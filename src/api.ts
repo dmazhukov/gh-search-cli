@@ -1,5 +1,5 @@
-import * as headerParser from 'parse-link-header'
-import * as request from 'request-promise-native'
+import headerParser from 'parse-link-header'
+import request from 'request-promise-native'
 
 export type ApiOptions = {
   apiToken: string;
