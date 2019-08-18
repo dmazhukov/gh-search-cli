@@ -87,9 +87,12 @@ export default class Repositories extends Command {
 
   format(data: ApiResponse): TableResult {
     const rows = data.items.reduce((acc, item) => {
-      const repo = chalk.cyan(item.full_name)
-      const url = item.html_url
-      acc.push({repo, url})
+      const repo = chalk.green(item.full_name)
+      const url = chalk.blue(item.html_url)
+      const description = chalk.whiteBright(item.description)
+      const stars = chalk.yellowBright(item.stargazers_count)
+      const pushed = chalk.dim(item.pushed_at)
+      acc.push({repo, stars, description, pushed, url})
       return acc
     }, [])
 
@@ -97,7 +100,10 @@ export default class Repositories extends Command {
       rows,
       columns: {
         repo: {},
-        url: {}
+        stars: {},
+        description: {},
+        pushed: {},
+        url: {},
       }
     }
   }
