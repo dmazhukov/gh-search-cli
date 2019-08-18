@@ -92,7 +92,7 @@ export default class Repositories extends Command {
       const url = chalk.blue(item.html_url)
       const description = chalk.whiteBright(item.description)
       const stars = chalk.yellowBright(item.stargazers_count)
-      const pushed = chalk.dim(item.pushed_at.toString())
+      const pushed = chalk.dim(item.pushed_at)
       acc.push({repo, stars, description, pushed, url})
       return acc
     }, [])
