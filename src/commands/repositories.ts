@@ -3,6 +3,7 @@ import chalk from 'chalk'
 
 import {ApiResponse} from '../api'
 import Command, {TableResult} from '../base-command'
+import { string } from '@oclif/command/lib/flags';
 
 export default class Repositories extends Command {
   static description = 'search github repositories. https://developer.github.com/v3/search/#search-repositories'
@@ -91,7 +92,7 @@ export default class Repositories extends Command {
       const url = chalk.blue(item.html_url)
       const description = chalk.whiteBright(item.description)
       const stars = chalk.yellowBright(item.stargazers_count)
-      const pushed = chalk.dim(item.pushed_at)
+      const pushed = chalk.dim(item.pushed_at.toString())
       acc.push({repo, stars, description, pushed, url})
       return acc
     }, [])
