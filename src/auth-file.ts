@@ -1,45 +1,44 @@
-import * as Config from '@oclif/config'
-import * as fs from 'fs-extra'
-import * as path from 'path'
+import * as Config from '@oclif/config';
+import * as fs from 'fs-extra';
+import * as path from 'path';
 
 export type AuthConfig = {
-    token: string,
-    baseUrl: string
-}
+	token: string;
+	baseUrl: string;
+};
 
 export default class AuthFile {
-  config: Config.IConfig
-  path: string
+	config: Config.IConfig;
 
-  constructor(config: Config.IConfig) {
-    this.config = config
-    this.path = path.join(this.config.configDir, 'auth.json')
-  }
+	path: string;
 
-  async getConfig(): Promise<Partial<AuthConfig>> {
-    try {
-      const auth = await fs.readJSON(this.path)
-      if (auth && auth.token && auth.baseUrl) {
-        return auth
-      } else {
-        await fs.outputJson(this.path, {})
-        return {}
-      }
-    } catch (err) {
-      if (err.code === 'ENOENT') {
-        await fs.outputJson(this.path, {})
-        return {}
-      } else {
-        throw err
-      }
-    }
-  }
+	constructor(config: Config.IConfig) {
+		this.config = config;
+		this.path = path.join(this.config.configDir, 'auth.json');
+	}
 
-  setConfig(config: AuthConfig): Promise<void> {
-    return fs.outputJson(this.path, config)
-  }
+	async getConfig(): Promise<Partial<AuthConfig>> {
+		try {
+			const auth = await fs.readJSON(this.path);
+			if (auth && auth.token && auth.baseUrl) {
+				return auth;
+			}
+			await fs.outputJson(this.path, {});
+			return {};
+		} catch (error) {
+			if (error.code === 'ENOENT') {
+				await fs.outputJson(this.path, {});
+				return {};
+			}
+			throw error;
+		}
+	}
 
-  clear(): Promise<void> {
-    return fs.outputJson(this.path, {})
-  }
+	setConfig(config: AuthConfig): Promise<void> {
+		return fs.outputJson(this.path, config);
+	}
+
+	clear(): Promise<void> {
+		return fs.outputJson(this.path, {});
+	}
 }
